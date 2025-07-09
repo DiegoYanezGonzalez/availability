@@ -10,4 +10,3 @@ def test_duplicate_booking():
     client.post('/reserve', json={"room": "B", "time": "14:00"})
     resp = client.post('/reserve', json={"room": "B", "time": "14:00"})
     assert resp.status_code == 409
-

@@ -1,5 +1,5 @@
-def check_availability(reservas, nueva):
-    for r in reservas:
-        if r["room"] == nueva["room"] and r["time"] == nueva["time"]:
+def check_availability(room, time):
+    for r in reservations:
+        if r['room'] == room and r['time'] == time:
             return False
     return True
