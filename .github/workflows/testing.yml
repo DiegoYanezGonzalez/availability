@@ -30,7 +30,7 @@ jobs:
       - name: Install ChromeDriver
         run: |
           sudo apt-get install -y chromium-chromedriver
-          sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
+          sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver || true
 
       - name: Start Flask app in background
         run: |
