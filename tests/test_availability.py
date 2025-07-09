@@ -1,4 +1,4 @@
-from app.availability import verificar_disponibilidad
+from app.availability import check_availability
 
 def test_room_available():
     rooms = [
@@ -6,7 +6,7 @@ def test_room_available():
         {"room": "A", "time": "11:00"}
     ]
     new = {"room": "A", "time": "12:00"}
-    assert verificar_disponibilidad(rooms, new) == True
+    assert check_availability(rooms, new) == True
 
 def test_room_unavailable():
     rooms = [
@@ -14,4 +14,4 @@ def test_room_unavailable():
         {"room": "A", "time": "11:00"}
     ]
     new = {"room": "A", "time": "11:00"}
-    assert verificar_disponibilidad(rooms, new) == False
+    assert check_availability(rooms, new) == False
