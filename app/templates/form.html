@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Room Reservation</title></head>
+<body>
+  <h1>Book a Room</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" action="/reserve">
+    <input type="text" name="room" />
+    <input type="text" name="time" />
+    <button type="submit">Book</button>
+  </form>  
+</body>
+</html>

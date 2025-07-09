@@ -1,4 +1,4 @@
-name: API Test Suite
+name: API & UI Test Suite
 
 on: [push, pull_request]
 
@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -19,6 +20,17 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
+
+      - name: Start Flask app in background
+        run: |
+          source venv/bin/activate
+          export FLASK_APP=app/api.py
+          export FLASK_ENV=development
+          nohup flask run --host=127.0.0.1 --port=5000 &
+
+      - name: Wait for Flask to be up
+        run: |
+          sleep 5 
 
       - name: Run tests
         run: |
