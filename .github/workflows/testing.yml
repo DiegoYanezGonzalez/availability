@@ -1,4 +1,4 @@
-name: API & UI Test Suite
+name: API and UI Test Suite
 
 on: [push, pull_request]
 
@@ -19,18 +19,28 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+          pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+
+      - name: Install ChromeDriver
+        run: |
+          sudo apt-get install -y chromium-chromedriver
+          sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
 
       - name: Start Flask app in background
         run: |
           source venv/bin/activate
-          export FLASK_APP=app/api.py
-          export FLASK_ENV=development
-          nohup flask run --host=127.0.0.1 --port=5000 &
+          python app/api.py &
+        env:
+          FLASK_ENV: development
 
       - name: Wait for Flask to be up
-        run: |
-          sleep 5 
+        run: sleep 5
 
       - name: Run tests
         run: |
