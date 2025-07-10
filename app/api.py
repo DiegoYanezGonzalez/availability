@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify, render_template # type: ignore
-from availability import check_availability
+# app/api.py
+from flask import Flask, request, jsonify, render_template
+from app.availability import check_availability
 
 app = Flask(__name__)
 reservations = []
@@ -18,12 +19,12 @@ def reserve():
         if not room or not time:
             return jsonify({"error": "Missing data"}), 422
 
-        if not check_availability(room, time):
+        if not check_availability(reservations, {'room': room, 'time': time}):
             return jsonify({"error": "Room already reserved"}), 409
 
         reservations.append({'room': room, 'time': time})
         return jsonify({"message": "Reserved successfully"}), 201
 
     except Exception as e:
-        print("\U0001F525 Error en reserva:", e)
+        print("🔥 Error:", e)
         return jsonify({"error": "Internal Server Error"}), 500
